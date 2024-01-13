@@ -158,7 +158,7 @@ for i in range(swarm_size):
 pygame.display.update()
 
 # pause to check the network before the simulations, or for screen recording
-raw_input("<Press Enter to continue>")
+input("<Press Enter to continue>")
 
 # function for simulation 1, find the closest robot to a host robot
 # use global variable "dist_table"
@@ -188,15 +188,15 @@ def S1_robot_grouping(robot_list, robot_group_ids, groups):
         # regardless of only one group or multiple groups in groups_temp
     if len(groups_temp.keys()) > 1:  # there is more than one group
         # find the largest group and disassemble the rest
-        group_id_max = groups_temp.keys()[0]
+        group_id_max = list(groups_temp.keys())[0]
         size_max = len(groups[group_id_max][0])
-        for group_id_temp in groups_temp.keys()[1:]:
+        for group_id_temp in list(groups_temp.keys())[1:]:
             size_temp = len(groups[group_id_temp][0])
             if size_temp > size_max:
                 group_id_max = group_id_temp
                 size_max = size_temp
     else:  # only one group, automatically the largest one
-        group_id_max = groups_temp.keys()[0]
+        group_id_max = list(groups_temp.keys())[0]
     return groups_temp, group_id_max
 
 # general function to reset radian angle to [-pi, pi)
@@ -513,7 +513,7 @@ while True:
         groups[group_id_temp][1] = groups[group_id_temp][1] + life_incre
     # 3.st_0to2, robot '0' forms new group with '0', both becoming '2'
     while len(st_0to2.keys()) != 0:
-        pair0 = st_0to2.keys()[0]
+        pair0 = list(st_0to2.keys())[0]
         pair1 = st_0to2[pair0]
         st_0to2.pop(pair0)
         if (pair1 in st_0to2.keys()) and (st_0to2[pair1] == pair0):
@@ -696,13 +696,13 @@ while True:
 
     # check exit condition of simulation 1
     if not loop_formed:
-        if ((len(groups.keys()) == 1) and (len(groups.values()[0][0]) == swarm_size)
+        if ((len(groups.keys()) == 1) and (len(list(groups.values())[0][0]) == swarm_size)
             and no_state1_robot):
             loop_formed = True
     if loop_formed:
         if ending_period <= 0:
             print("simulation 1 is finished")
-            if manual_mode: raw_input("<Press Enter to continue>")
+            if manual_mode: input("<Press Enter to continue>")
             print("")  # empty line
             break
         else:
@@ -731,7 +731,7 @@ if (len(loop_set) != swarm_size):
 # tmp_filepath = os.path.join('tmp', 'demo2_100_robot_poses')
 # with open(tmp_filepath, 'w') as f:
 #     pickle.dump([robot_poses, robot_key_neighbors, robot_loop_orders], f)
-# raw_input("<Press Enter to continue>")
+# input("<Press Enter to continue>")
 # sys.exit()
 
 # # restore variable "robot_poses", "robot_key_neighbors", and "robot_loop_orders"
@@ -975,7 +975,7 @@ while True:
             print("converged to decision {}: {}".format(shape_decision,
                 shape_catalog[shape_decision]))
             print("simulation 2 is finished")
-            if manual_mode: raw_input("<Press Enter to continue>")
+            if manual_mode: input("<Press Enter to continue>")
             print("")  # empty line
             break
 
@@ -1306,7 +1306,7 @@ while True:
         # check exit condition of simulation 3
         if converged_all and inter_err_max < inter_err_thres:
             print("simulation 3 is finished")
-            if manual_mode: raw_input("<Press Enter to continue>")
+            if manual_mode: input("<Press Enter to continue>")
             print("")  # empty line
             break
 

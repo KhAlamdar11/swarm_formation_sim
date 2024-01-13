@@ -121,7 +121,7 @@ try:
     # argument followed by '-f'. But if '-f' is not even in the arguments, this won't raise
     # an error. So it's necessary to define the default network filename
 except getopt.GetoptError as err:
-    print str(err)
+    print(str(err))
     sys.exit()
 for opt,arg in opts:
     if opt == '-f':
@@ -130,7 +130,7 @@ for opt,arg in opts:
         # check if this file exists
         net_filepath = os.path.join(os.getcwd(), net_folder, net_filename)
         if not os.path.isfile(net_filepath):
-            print "{} does not exist".format(net_filename)
+            print("{} does not exist".format(net_filename))
             sys.exit()
         # parse the network size
         net_size = int(net_filename.split('-')[0])  # the number before first dash
@@ -237,8 +237,8 @@ if calculate_h_dependency:
     node_max = dependencies.index(max(dependencies))
     holistic_dependency_abs = dependencies[node_max] - dependency_mean
     holistic_dependency_rel = dependencies[node_max] / dependency_mean
-    print "absolute holistic dependency {}".format(holistic_dependency_abs)
-    print "relative holistic dependency {}".format(holistic_dependency_rel)
+    print("absolute holistic dependency {}".format(holistic_dependency_abs))
+    print("relative holistic dependency {}".format(holistic_dependency_rel))
 # Also uncomment two lines somewhere below to highlight maximum individual dependency node,
 # and halt the program after drawing the network.
 
@@ -342,7 +342,7 @@ for sim_index in range(repeat_times):  # repeat the simulation for these times
     avg_dist_id_sort = np.argsort(mean_temp)[::-1]
     # the dominant decision of all nodes
     deci_domi = np.argmax(deci_dist, axis=1)
-    print deci_domi
+    print(deci_domi)
     # only adjacent block of nodes sharing same dominant decision belongs to same group
     groups = []  # put nodes in groups by their local consensus
     group_sizes = [0 for i in range(net_size)]  # the group size that each node belongs to
@@ -373,7 +373,7 @@ for sim_index in range(repeat_times):  # repeat the simulation for these times
     # start the matplotlib window first before the simulation cycle
     fig = plt.figure()
     # fig.canvas.set_window_title('Unipolarity of 2D Triangle Grid Network')
-    fig.canvas.set_window_title('Discrete Entropy of the Preference Distributions')
+    fig.canvas.manager.set_window_title('Discrete Entropy of the Preference Distributions')
     ax = fig.add_subplot(111, projection='3d')
     x_pos = [pos[0] for pos in nodes_plt]  # the positions of the bars
     y_pos = [pos[1] for pos in nodes_plt]
@@ -425,7 +425,7 @@ for sim_index in range(repeat_times):  # repeat the simulation for these times
         groups = []  # empty the group container
         group_deci = []  # the exhibited decision of the groups
         # a diminishing global pool for node indices, for nodes not yet assigned into groups
-        n_pool = range(net_size)
+        n_pool = list(range(net_size))
         # start searching groups one by one from the global node pool
         while len(n_pool) != 0:
             # start a new group, with first node in the n_pool
@@ -466,11 +466,11 @@ for sim_index in range(repeat_times):  # repeat the simulation for these times
         # update the colors for the exhibited decisions
         if not color_initialized:
             color_initialized = True
-            select_set = range(color_quantity)  # the initial selecting set
+            select_set = list(range(color_quantity))  # the initial selecting set
             all_deci_set = set(group_deci)  # put all exhibited decisions in a set
             for deci in all_deci_set:  # avoid checking duplicate decisions
                 if len(select_set) == 0:
-                    select_set = range(color_quantity)  # start a new set to select from
+                    select_set = list(range(color_quantity))  # start a new set to select from
                 # # force color blue for first decision, color orange for second decision
                 # if deci == 0:
                 #     chosen_color = 3  # color blue
@@ -500,7 +500,7 @@ for sim_index in range(repeat_times):  # repeat the simulation for these times
                         # construct a new select_set
                         color_assigns_min = min(color_assigns)
                         color_assigns_temp = [j - color_assigns_min for j in color_assigns]
-                        select_set = range(color_quantity)
+                        select_set = list(range(color_quantity))
                         for j in range(color_quantity):
                             if color_assigns_temp[j] != 0:
                                 select_set.remove(j)
@@ -582,7 +582,7 @@ for sim_index in range(repeat_times):  # repeat the simulation for these times
                     large_end = 2.0/deci_num - small_end
                     # sort the magnitude of the current distribution
                     dist_temp = np.copy(deci_dist[i])  # temporary distribution
-                    sort_index = range(deci_num)
+                    sort_index = list(range(deci_num))
                     for j in range(deci_num-1):  # bubble sort, ascending order
                         for k in range(deci_num-1-j):
                             if dist_temp[k] > dist_temp[k+1]:
@@ -681,7 +681,7 @@ for sim_index in range(repeat_times):  # repeat the simulation for these times
             time_last = pygame.time.get_ticks()  # reset time-last
 
         # iteration count
-        print "iteration {}".format(iter_count)
+        print("iteration {}".format(iter_count))
         iter_count = iter_count + 1
         # hold the program to check the network
         # raw_input("<Press Enter to continue>")

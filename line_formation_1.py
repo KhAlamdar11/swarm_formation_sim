@@ -254,7 +254,7 @@ while not sim_exit:
                         dist_min = 2*comm_range  # start with a large dist
                         robot_min = -1  # corresponding robot with min distance
                         # search the closest '2'
-                        for j in groups_temp.values()[0]:
+                        for j in list(groups_temp.values())[0]:
                             if dist_table[i][j] < dist_min:
                                 dist_min = dist_table[i][j]
                                 robot_min = j
@@ -687,7 +687,7 @@ while not sim_exit:
                     s_dis_list.append(gs_it[0])
             else:
                 # compare which group has the most members, and disassemble the rest
-                g_temp = gs_it[:]
+                g_temp = list(gs_it)[:]
                 member_max = 0  # number of members in the group
                 group_max = -1  # corresponding group id with most members
                 for g_it in g_temp:

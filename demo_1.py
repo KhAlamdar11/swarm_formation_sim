@@ -220,7 +220,7 @@ for i in range(swarm_size):
 pygame.display.update()
 
 # pause to check the network before the simulations, or for screen recording
-raw_input("<Press Enter to continue>")
+input("<Press Enter to continue>")
 
 # function for simulation 1 and 4, group robots by their group ids, and find the largest group
 def S14_robot_grouping(robot_list, robot_group_ids, groups):
@@ -236,15 +236,15 @@ def S14_robot_grouping(robot_list, robot_group_ids, groups):
         # regardless of only one group or multiple groups in groups_temp
     if len(groups_temp.keys()) > 1:  # there is more than one group
         # find the largest group and disassemble the rest
-        group_id_max = groups_temp.keys()[0]
+        group_id_max = list(groups_temp.keys())[0]
         size_max = len(groups[group_id_max][0])
-        for group_id_temp in groups_temp.keys()[1:]:
+        for group_id_temp in list(groups_temp.keys())[1:]:
             size_temp = len(groups[group_id_temp][0])
             if size_temp > size_max:
                 group_id_max = group_id_temp
                 size_max = size_temp
     else:  # only one group, automatically the largest one
-        group_id_max = groups_temp.keys()[0]
+        group_id_max = list(groups_temp.keys())[0]
     return groups_temp, group_id_max
 
 # function for simulation 1 and 4, find the closest robot to a host robot
@@ -540,7 +540,7 @@ while True:
             groups.pop(group_id_temp)
         # 3.st_0to1_new
         while len(st_0to1_new.keys()) != 0:
-            pair0 = st_0to1_new.keys()[0]
+            pair0 = list(st_0to1_new.keys())[0]
             pair1 = st_0to1_new[pair0]
             st_0to1_new.pop(pair0)
             if (pair1 in st_0to1_new.keys()) and (st_0to1_new[pair1] == pair0):
@@ -673,12 +673,12 @@ while True:
 
         # check exit condition of simulation 1
         if not swarm_aggregated:
-            if (len(groups.keys()) == 1) and (len(groups.values()[0][0]) == swarm_size):
+            if (len(list(groups.keys())) == 1) and (len(list(groups.values())[0][0]) == swarm_size):
                 swarm_aggregated = True  # once aggregated, there is no turning back
         if swarm_aggregated:
             if ending_period <= 0:
                 print("simulation 1 is finished")
-                if manual_mode: raw_input("<Press Enter to continue>")
+                if manual_mode: input("<Press Enter to continue>")
                 print("")  # empty line
                 break
             else:
@@ -689,7 +689,7 @@ while True:
     # tmp_filepath = os.path.join('tmp', 'demo1_100_robot_poses')
     # with open(tmp_filepath, 'w') as f:
     #     pickle.dump(robot_poses, f)
-    # raw_input("<Press Enter to continue>")
+    # input("<Press Enter to continue>")
     # break
 
     ########### simulation 2: consensus decision making of target loop shape ###########
@@ -974,7 +974,7 @@ while True:
             print("converged to decision {}: {}".format(shape_decision,
                 shape_catalog[shape_decision]))
             print("simulation 2 is finished")
-            if manual_mode: raw_input("<Press Enter to continue>")
+            if manual_mode: input("<Press Enter to continue>")
             print("")  # empty line
             break
 
@@ -1255,7 +1255,7 @@ while True:
                 assignment_scheme[i] = local_role_assignment[0][i][0]
             print("")  # move cursor to the new line
             print("simulation 3 is finished")
-            if manual_mode: raw_input("<Press Enter to continue>")
+            if manual_mode: input("<Press Enter to continue>")
             print("")  # empty line
             break
 
@@ -1264,7 +1264,7 @@ while True:
     # tmp_filepath = os.path.join('tmp', 'demo1_100_assignment_scheme')
     # with open(tmp_filepath, 'w') as f:
     #     pickle.dump(assignment_scheme, f)
-    # raw_input("<Press Enter to continue>")
+    # input("<Press Enter to continue>")
     # break
 
     ########### simulation 4: loop formation with designated role assignment ###########
@@ -1758,7 +1758,7 @@ while True:
         if loop_formed:
             if ending_period <= 0:
                 print("simulation 4 is finished")
-                if manual_mode: raw_input("<Press Enter to continue>")
+                if manual_mode: input("<Press Enter to continue>")
                 print("")  # empty line
                 break
             else:
@@ -1769,7 +1769,7 @@ while True:
     # tmp_filepath = os.path.join('tmp', 'demo1_100_robot_poses2')
     # with open(tmp_filepath, 'w') as f:
     #     pickle.dump([robot_poses, robot_key_neighbors], f)
-    # raw_input("<Press Enter to continue>")
+    # input("<Press Enter to continue>")
     # break
 
     ########### simulation 5: loop reshaping to chosen shape ###########
@@ -1924,7 +1924,7 @@ while True:
         # check exit condition of simulation 5
         if inter_err_max < inter_err_thres:
             print("simulation 5 is finished")
-            if manual_mode: raw_input("<Press Enter to continue>")
+            if manual_mode: input("<Press Enter to continue>")
             print("")  # empty line
             break
 

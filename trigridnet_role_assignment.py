@@ -45,7 +45,7 @@ net_filepath = os.path.join(os.getcwd(), net_folder, net_filename)
 try:
     opts, args = getopt.getopt(sys.argv[1:], 'f:')
 except getopt.GetoptError as err:
-    print str(err)
+    print(str(err))
     sys.exit()
 for opt,arg in opts:
     if opt == '-f':
@@ -53,7 +53,7 @@ for opt,arg in opts:
         net_filepath = os.path.join(os.getcwd(), net_folder, net_filename)
         # check if this file exists
         if not os.path.isfile(net_filepath):
-            print "{} does not exist".format(net_filename)
+            print("{} does not exist".format(net_filename))
             sys.exit()
         # parse the network size
         net_size = int(net_filename.split('-')[0])
@@ -132,7 +132,7 @@ for i in range(net_size):
     # screen.blit(text, (nodes_disp[i][0]+12, nodes_disp[i][1]-12))
 pygame.display.update()
 
-raw_input("press <ENTER> to continue")
+input("press <ENTER> to continue")
 
 ########## the role assignment algorithm ##########
 
@@ -237,16 +237,16 @@ for source in range(net_size):
 role_color = [0 for i in range(net_size)]  # colors for a conflicting role
 # Dynamically manage color for conflicting nodes is unnecessarily complicated, might as
 # well assign the colors in advance.
-role_index_pool = range(net_size)
+role_index_pool = list(range(net_size))
 random.shuffle(role_index_pool)
-color_index_pool = range(color_quantity)
+color_index_pool = list(range(color_quantity))
 random.shuffle(color_index_pool)
 while len(role_index_pool) != 0:
     role_color[role_index_pool[0]] = color_index_pool[0]
     role_index_pool.pop(0)
     color_index_pool.pop(0)
     if len(color_index_pool) == 0:
-        color_index_pool = range(color_quantity)
+        color_index_pool = list(range(color_quantity))
         random.shuffle(color_index_pool)
 
 # flags
@@ -299,7 +299,7 @@ while not sim_exit:
             probability = message[2]
             time_stamp = message[3]
             if source == i:
-                print "error, node {} receives message of itself".format(i)
+                print("error, node {} receives message of itself".format(i))
                 sys.exit()
             if time_stamp > local_role_assignment[i][source][2]:
                 # received message will only take any effect if time stamp is new
@@ -334,7 +334,7 @@ while not sim_exit:
                     pref_dist_temp[j] = -1
             role_new = np.argmax(pref_dist_temp)
             if pref_dist_temp[role_new] < 0:
-                print "error, node {} has no available role".format(i)
+                print("error, node {} has no available role".format(i))
                 sys.exit()
             # role_new is good to go
             # update local_node_assignment
@@ -377,7 +377,7 @@ while not sim_exit:
             persist_nodes.append(i)
 
     # debug print
-    print "iteration {}, total transmission {}".format(iter_count, transmission_total)
+    print("iteration {}, total transmission {}".format(iter_count, transmission_total))
 
     # update the display
     for i in range(net_size):
@@ -418,7 +418,7 @@ while not sim_exit:
     if all_converged: sim_exit = True
 
 # hold the simulation window to exit manually
-raw_input("role assignment finished, press <ENTER> to exit")
+input("role assignment finished, press <ENTER> to exit")
 
 
 

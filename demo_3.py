@@ -152,7 +152,7 @@ for i in range(swarm_size):
 pygame.display.update()
 
 # pause to check the network before the simulations, or for screen recording
-raw_input("<Press Enter to continue>")
+input("<Press Enter to continue>")
 
 # function for simulation 1, group robots by their group ids, and find the largest group
 def S1_robot_grouping(robot_list, robot_group_ids, groups):
@@ -168,15 +168,15 @@ def S1_robot_grouping(robot_list, robot_group_ids, groups):
         # regardless of only one group or multiple groups in groups_temp
     if len(groups_temp.keys()) > 1:  # there is more than one group
         # find the largest group and disassemble the rest
-        group_id_max = groups_temp.keys()[0]
+        group_id_max = list(groups_temp.keys())[0]
         size_max = len(groups[group_id_max][0])
-        for group_id_temp in groups_temp.keys()[1:]:
+        for group_id_temp in list(groups_temp.keys())[1:]:
             size_temp = len(groups[group_id_temp][0])
             if size_temp > size_max:
                 group_id_max = group_id_temp
                 size_max = size_temp
     else:  # only one group, automatically the largest one
-        group_id_max = groups_temp.keys()[0]
+        group_id_max = list(groups_temp.keys())[0]
     return groups_temp, group_id_max
 
 # function for simulation 1, find the closest robot to a host robot
@@ -457,14 +457,14 @@ while True:
     # process the state transitions
     # 1.st_1to2, state '1' becomes state '2'
     while len(st_1to2.keys()) != 0:
-        joiner = st_1to2.keys()[0]
+        joiner = list(st_1to2.keys())[0]
         key = st_1to2[joiner][0]
         side = st_1to2[joiner][1]
         side_other = 1 - side
         st_1to2.pop(joiner)
         if robot_key_neighbors[key][side] == -1:  # join at one end
             # check if other robots are join the same slot
-            key_rest = st_1to2.keys()[:]
+            key_rest = list(st_1to2.keys())[:]
             for joiner_temp in key_rest:
                 if (st_1to2[joiner_temp][0] == key and st_1to2[joiner_temp][1] == side):
                     # "joiner_temp" is joining same slot as "joiner"
@@ -481,7 +481,7 @@ while True:
             side_other = 1 - side
             des_pos = (robot_poses[key] + robot_poses[key_other]) / 2.0
             # check if other robots are join the same slot
-            key_rest = st_1to2.keys()[:]
+            key_rest = list(st_1to2.keys())[:]
             for joiner_temp in key_rest:
                 if ((st_1to2[joiner_temp][0] == key and st_1to2[joiner_temp][1] == side) or
                     (st_1to2[joiner_temp][0] == key_next and st_1to2[joiner_temp][1] == side_other)):
@@ -508,7 +508,7 @@ while True:
         groups[group_id_temp][1] = groups[group_id_temp][1] + life_incre
     # 3.st_0to2, robot '0' forms new group with '0', both becoming '2'
     while len(st_0to2.keys()) != 0:
-        pair0 = st_0to2.keys()[0]
+        pair0 = list(st_0to2.keys())[0]
         pair1 = st_0to2[pair0]
         st_0to2.pop(pair0)
         if (pair1 in st_0to2.keys()) and (st_0to2[pair1] == pair0):
@@ -753,13 +753,13 @@ while True:
 
     # check exit condition of simulation 1
     if not line_formed:
-        if ((len(groups.keys()) == 1) and (len(groups.values()[0][0]) == swarm_size)
+        if ((len(groups.keys()) == 1) and (len(list(groups.values())[0][0]) == swarm_size)
             and no_state1_robot):
             line_formed = True
     if line_formed:
         if ending_period <= 0:
             print("simulation 1 is finished")
-            if manual_mode: raw_input("<Press Enter to continue>")
+            if manual_mode: input("<Press Enter to continue>")
             print("")  # empty line
             break
         else:
@@ -786,7 +786,7 @@ if (len(set(line_robots)) != swarm_size):
 # # tmp_filepath = os.path.join('tmp', 'demo3_100_robot_poses')
 # with open(tmp_filepath, 'w') as f:
 #     pickle.dump([robot_poses, robot_key_neighbors, line_robots], f)
-# raw_input("<Press Enter to continue>")
+# input("<Press Enter to continue>")
 # sys.exit()
 
 # # restore variable "robot_poses", "robot_key_neighbors"
@@ -1073,7 +1073,7 @@ while True:
             print("")  # move cursor to the new line
             print("converged to decision {}".format(shape_decision))
             print("simulation 2 is finished")
-            if manual_mode: raw_input("<Press Enter to continue>")
+            if manual_mode: input("<Press Enter to continue>")
             print("")  # empty line
             break
 
@@ -1247,7 +1247,7 @@ while True:
         # check exit condition of simulation 3
         if converged_all and inter_err_max < inter_err_thres:
             print("simulation 3 is finished")
-            if manual_mode: raw_input("<Press Enter to continue>")
+            if manual_mode: input("<Press Enter to continue>")
             print("")  # empty line
             break
 

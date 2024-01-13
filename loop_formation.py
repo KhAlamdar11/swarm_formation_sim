@@ -289,7 +289,7 @@ while not sim_exit:
                         dist_min = 2*comm_range  # smallest distance, start with large one
                         robot_min = -1  # corresponding robot with min distance
                         # search the closest '2'
-                        for j in groups_temp.values()[0]:
+                        for j in list(groups_temp.values())[0]:
                             if dist_table[i][j] < dist_min and dist_table[i][j] > 0:
                                 if robots[j].status_2_avail1:
                                     # at least the interior angle of robot j should be good
@@ -359,7 +359,7 @@ while not sim_exit:
                         dist_min = 2*comm_range  # variable for smallest distance
                         robot_min = -1  # corresponding robot with dist_min
                         # search the closest '1.1'
-                        for j in groups_temp.values()[0]:
+                        for j in list(groups_temp.values())[0]:
                             if dist_table[i][j] < dist_min and dist_table[i][j] > 0:
                                 # there is no availability restriction here
                                 dist_min = dist_table[i][j]
@@ -783,7 +783,7 @@ while not sim_exit:
                     s_dis_list.append(gs_it[0])
             else:
                 # compare which group has the most members, and disassemble the rest
-                g_temp = gs_it[:]
+                g_temp = list(gs_it)[:]
                 member_max = 0  # variable for maximum number of members
                 group_max = -1  # corresponding group id with member_max
                 for g_it in g_temp:
@@ -972,8 +972,8 @@ while not sim_exit:
                     line_count = line_count + 1
                 # check if number of drawed line segments is correct
                 if line_count != groups[g_it][1]:
-                    print "group {} has {} nodes but {} line segments".format(g_it, groups[g_it][1],
-                                                                              line_count)
+                    print("group {} has {} nodes but {} line segments".format(g_it, groups[g_it][1],
+                                                                              line_count))
         pygame.display.update()
 
 pygame.quit()
